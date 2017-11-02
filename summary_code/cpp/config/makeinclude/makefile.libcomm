@@ -1,0 +1,65 @@
+################################################################
+#编译库的makefile模板
+################################################################
+
+ifndef LIB_TARGET
+$(error LIB_TARGET undefined,please define it before include this file)
+endif
+
+include $(PATH_PRJ_ROOT)/makeinclude/makefile.plib
+
+
+INC := $(INC)
+LIB := $(LIB)
+
+.PHONY: all dep clean print
+
+
+all:$(BIN_DIR)$(LIB_TARGET)
+
+dep:$(DEPS)
+
+$(BIN_DIR)$(LIB_TARGET):$(OBJS)
+	@if( $(AR) rc $@ $(OBJS) );then \
+		echo -e "Aring $@"[$(GREEN)OK$(RESET)];\
+	 else \
+	 	echo -e "Aring $@"[$(RED)FAIL$(RESET)];\
+		exit 1;\
+	 fi
+
+$(OBJS_DIR)%.o:$(SRC_DIR)%.cpp
+	@if ( $(CXX) $(C_FLAGS) $(INC) -c $< -o $@ );then \
+		echo -e "Compiling $<"[$(GREEN)OK$(RESET)]; \
+	 else \
+	 	echo -e "Compiling $<"[$(RED)FAIL$(RESET)]; \
+		exit 1;\
+	 fi
+
+#生成依赖文件，如果需要可以加上
+ifndef NOT_COMPILE_DEP
+ifneq ($(MAKECMDGOALS),clean)
+-include $(DEPS)
+endif
+
+$(OBJS_DIR)%.d:$(SRC_DIR)%.cpp
+	@if ($(CXX) -MM -MT "$(patsubst %.d,$@ %.o,$@)" $(C_FLAGS) $(INC) $< > $@ );then \
+		echo -ne $(RESET);\
+	 else \
+		echo -ne $(RESET); \
+		exit 1;\
+	 fi
+endif
+
+clean:
+	rm -f $(BIN_DIR)$(LIB_TARGET) $(OBJS) $(DEPS)
+print:
+	@echo "INC:$(INC)"
+	@echo "LIB:$(LIB)"
+	@echo "DEP_LIB:$(DEP_LIB)"
+	@echo "SRCS:$(SRCS)"
+	@echo "DEPS:$(DEPS)"
+	@echo "OBJS:$(OBJS)"
+	@echo "BIN_DIR:$(BIN_DIR)"
+	@echo "OBJS_DIR:$(OBJS_DIR)"
+	@echo "SRC_DIR:$(SRC_DIR)"
+	@echo "C_FLAGS:$(C_FLAGS)"

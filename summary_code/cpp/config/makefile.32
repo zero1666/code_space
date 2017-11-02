@@ -1,0 +1,11 @@
+PATH_PRJ_ROOT:=$(if $(PATH_PRJ_ROOT), $(PATH_PRJ_ROOT), .)
+
+INC=-I include/ $(INC_BASECLASS)
+
+SRC_DIR=./src/
+OBJS_DIR=./src/
+BIN_DIR=./lib/
+
+LIB_TARGET=libconfig.a
+
+include $(PATH_PRJ_ROOT)/makeinclude/makefile.libcomm

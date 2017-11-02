@@ -1,0 +1,74 @@
+###############################################################################
+#	Common Makefile define
+#	本文件定义了所有makefile通用的一些变量
+###############################################################################
+ifndef PATH_PRJ_ROOT
+$(error PATH_PRJ_ROOT undefined,please define it before include this file)
+endif
+
+ifndef BITS
+BITS = 32
+endif
+
+CC   = gcc
+CXX  = g++
+AR   = ar
+
+distccpath = /usr/local/bin/distcc
+distccexist = $(shell if [ -f $(distccpath) ]; then echo "exist"; else echo "notexist"; fi;)
+ccachepath = /usr/local/bin/ccache
+ccacheexist = $(shell if [ -f $(ccachepath) ]; then echo "exist"; else echo "notexist"; fi;)
+
+ifeq ($(ccacheexist), exist)
+	CXX  = ccache /usr/bin/g++
+	CC   = ccache /usr/bin/gcc
+endif
+
+ifeq ($(distccexist), exist)
+    ifeq ($(MAKE_DISTCC), 1)
+        CXX  := distcc $(CXX)
+	CC   := distcc $(CC)
+    endif
+endif
+
+C_FLAGS := -DDAILYMUSIC_PROJECT_ROOT=\"$(PATH_PRJ_RUNNING)\" -W -Wpointer-arith -g -O2 -pipe -D_REENTRANT -fPIC -Wall -Wno-unused -D__null=0 -DNEED_L5 -m$(BITS) -fno-strict-aliasing $(C_FLAGS)
+
+ifeq ($(BUILD), LCOV)
+		C_FLAGS+= -fprofile-arcs -ftest-coverage 
+endif
+
+#Set make -j value,is should be equal to cpu counts.
+ifeq ($(MAKE_JOBS_VAL),)
+        QMAKE = make
+else
+    ifeq ($(MAKE_JOBS_VAL),n)
+        QMAKE = make -j
+    else
+        QMAKE = make -j$(MAKE_JOBS_VAL)
+    endif
+endif
+
+#如果都在当前目录，下面三个变量可以不定义
+SRC_DIR := $(SRC_DIR)
+OBJS_DIR := $(OBJS_DIR)
+BIN_DIR := $(BIN_DIR)
+
+SRCS?=$(wildcard $(SRC_DIR)*.cpp)
+OBJS:=$(patsubst $(SRC_DIR)%.cpp,$(OBJS_DIR)%.o,$(SRCS))
+DEPS:=$(patsubst $(SRC_DIR)%.cpp,$(OBJS_DIR)%.d,$(SRCS))
+
+#colour schemes
+OFFSET = \\e[21G   # 21 col
+RED = \\e[1m\\e[31m
+DARKRED = \\e[31m
+GREEN = \\e[1m\\e[32m
+DARKGREEN = \\e[32m
+BLUE = \\e[1m\\e[34m
+DARKBLUE = \\e[34m
+YELLOW = \\e[1m\\e[33m
+DARKYELLOW = \\e[33m
+MAGENTA = \\e[1m\\e[35m
+DARKMAGENTA = \\e[35m
+CYAN = \\e[1m\\e[36m
+DARKCYAN = \\e[36m
+RESET = \\e[0m
