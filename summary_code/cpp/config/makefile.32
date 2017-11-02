@@ -1,6 +1,6 @@
 PATH_PRJ_ROOT:=$(if $(PATH_PRJ_ROOT), $(PATH_PRJ_ROOT), .)
 
-INC=-I include/ $(INC_BASECLASS)
+INC=-I include/ 
 
 SRC_DIR=./src/
 OBJS_DIR=./src/
