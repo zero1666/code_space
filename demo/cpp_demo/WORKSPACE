@@ -1,0 +1,3 @@
+load("//cppdemo:workspace.bzl", "cppdemo_workspace")
+
+cppdemo_workspace()
