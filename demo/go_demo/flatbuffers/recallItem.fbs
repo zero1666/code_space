@@ -1,0 +1,24 @@
+namespace flat;
+
+table RecallItem {
+    level:int;
+    uid:uint;
+    songid:uint;
+    vectagid:[long];
+    ugcid:string;
+    dscore:double;
+    groupid:int;
+    vecsongtags:[long];
+    singerid:uint;
+    int1:int;
+    int2:int;
+    str1:string;
+    long1:[long];
+    long2:long;
+    long3:long;
+    float1:double;
+    float2:double;
+}
+
+root_type RecallItem; 
+
