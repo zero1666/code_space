@@ -1,0 +1,4 @@
+	.DS_Store
+	.gitignore
+	demo/.DS_Store
+	demo/go_demo/.idea
