@@ -13,6 +13,8 @@ github.com/mostafa-asg/dag v0.0.0-20180108122927-e9a9f9155b75/go.mod h1:f7417aex
 github.com/tensorflow/tensorflow v2.2.0+incompatible h1:I3R4LhjYfIBG2dcv/O5MaqqvDE+8InkcSXijz9LxHXQ=
 github.com/tensorflow/tensorflow v2.2.0+incompatible/go.mod h1:itOSERT4trABok4UOoG+X4BoKds9F3rIsySdn+Lvu90=
 github.com/tensorflow/tensorflow v2.3.0+incompatible h1:FbjZGMOzvKFeLAnToZb+J7PJEpki6Ee1uC1w07cu/yI=
+golang.org/x/sync v0.8.0 h1:3NFvSEYkUoMifnESzZl15y791HH1qU2xm6eCJU5ZPXQ=
+golang.org/x/sync v0.8.0/go.mod h1:Czt+wKu1gCyEFDUtn0jG5QVvpJ6rzVqr5aXyt9drQfk=
 golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543/go.mod h1:I/5z698sn9Ka8TeJc9MKroUUfqBBauWjQqLJ2OPfmY0=
 google.golang.org/protobuf v0.0.0-20200109180630-ec00e32a8dfd/go.mod h1:DFci5gLYBciE7Vtevhsrf46CRTquxDuWsQurQQe4oz8=
 google.golang.org/protobuf v0.0.0-20200221191635-4d8936d0db64/go.mod h1:kwYJMbMJ01Woi6D6+Kah6886xMZcty6N08ah7+eCXa0=
